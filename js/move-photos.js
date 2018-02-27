@@ -4,6 +4,9 @@
 
   var photoContainer = document.querySelector('.form__photo-container .upload');
   var draggedItem = null;
+  var uploadedPhotos = [];
+  var indexEvt = 0;
+  var indexDraggedItem = 0;
 
   photoContainer.addEventListener('dragstart', function (evt) {
     if (evt.target.tagName.toLowerCase() === 'img') {
@@ -18,7 +21,11 @@
     return false;
   });
   photoContainer.addEventListener('drop', function (evt) {
-    if (draggedItem.offsetLeft > evt.target.offsetLeft) {
+    uploadedPhotos = [].slice.call(document.querySelectorAll('.uploaded-photo'));
+    indexEvt = uploadedPhotos.indexOf(evt.target);
+    indexDraggedItem = uploadedPhotos.indexOf(draggedItem);
+
+    if (indexDraggedItem > indexEvt) {
       photoContainer.insertBefore(draggedItem, evt.target);
     } else {
       photoContainer.insertBefore(draggedItem, evt.target.nextSibling);
@@ -30,9 +37,6 @@
   });
 
   photoContainer.addEventListener('dragleave', function (evt) {
-    if (evt.target.tagName.toLowerCase() === 'img') {
-      draggedItem = evt.target;
-    }
     evt.preventDefault();
   });
 })();

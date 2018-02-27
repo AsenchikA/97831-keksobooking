@@ -9,7 +9,6 @@
   var fieldsForm = document.querySelectorAll('fieldset');
   var fieldAddress = document.querySelector('#address');
   var roomsSelect = document.querySelector('#room_number');
-  var capacitySelect = document.querySelector('#capacity');
   var photoContainer = document.querySelector('.form__photo-container .upload');
   var avatar = document.querySelector('.notice__preview img');
   var defaultAvatarSrc = document.querySelector('.notice__preview img').src;
@@ -49,9 +48,7 @@
 
       avatar.src = defaultAvatarSrc;
 
-      if (capacitySelect.value > roomsSelect.value) {
-        capacitySelect.value = roomsSelect.value;
-      }
+      window.form.disableCapacityOptions(+roomsSelect.value);
 
       renderedPins = mapPins.querySelectorAll('.map__pin');
       [].forEach.call(renderedPins, function (pin) {
