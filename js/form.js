@@ -3,6 +3,7 @@
 (function () {
   var NOT_GUEST_ROOMS_VALUE = 100;
   var NOT_GUEST_CAPACITY_VALUE = 0;
+  var ENTER_KEYCODE = 13;
 
   var form = document.querySelector('.notice__form');
 
@@ -13,6 +14,7 @@
   var roomsSelect = document.querySelector('#room_number');
   var capacitySelect = document.querySelector('#capacity');
   var optionsCapacitySelect = document.querySelectorAll('#capacity option');
+  var resetButton = document.querySelector('.form__reset');
 
   var offerMinPrice = {
     bungalo: 0,
@@ -73,6 +75,16 @@
   form.addEventListener('submit', function (evt) {
     window.backend.save(new FormData(form), onSuccessSaveForm, window.showErrorMessage);
     evt.preventDefault();
+  });
+
+  resetButton.addEventListener('click', function () {
+    window.pageState.setPassive();
+  });
+
+  resetButton.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === ENTER_KEYCODE) {
+      window.pageState.setPassive();
+    }
   });
 
   window.form = {
