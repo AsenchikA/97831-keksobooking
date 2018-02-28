@@ -35,8 +35,6 @@
     fieldTimeIn.value = evt.target.value;
   });
 
-  var selectedRoomValue = roomsSelect.value;
-
   var disableCapacityOptions = function (selectedRoom) {
     for (var i = 0; i < optionsCapacitySelect.length; i++) {
       if (selectedRoom === NOT_GUEST_ROOMS_VALUE) {
@@ -60,16 +58,25 @@
     }
   };
 
-  disableCapacityOptions(+selectedRoomValue);
+  var selectedRoomValue = 0;
 
   roomsSelect.addEventListener('change', function (evt) {
     selectedRoomValue = evt.target.value;
     disableCapacityOptions(+selectedRoomValue);
   });
 
+  var onSuccessSaveForm = function () {
+    form.reset();
+    window.pageState.setPassive();
+  };
+
   form.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(form), form.reset.bind(form), window.showErrorMessage);
+    window.backend.save(new FormData(form), onSuccessSaveForm, window.showErrorMessage);
     evt.preventDefault();
   });
+
+  window.form = {
+    disableCapacityOptions: disableCapacityOptions
+  };
 
 })();
