@@ -73,7 +73,11 @@
   };
 
   form.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(form), onSuccessSaveForm, window.showErrorMessage);
+    var formData = new FormData(form);
+    window.getUploadedPhotos().forEach(function (pic) {
+      formData.append('files', pic, pic.name);
+    });
+    window.backend.save(formData, onSuccessSaveForm, window.showErrorMessage);
     evt.preventDefault();
   });
 
