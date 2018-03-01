@@ -1,10 +1,6 @@
 'use strict';
 
 (function () {
-
-  var ENTER_KEYCODE = 13;
-  var ESC_KEYCODE = 27;
-
   var mapPins = document.querySelector('.map__pins');
 
   mapPins.addEventListener('click', function (evt) {
@@ -15,20 +11,19 @@
   });
   mapPins.addEventListener('keydown', function (evt) {
     var offerId = evt.target.id.substr(-1);
-    if (offerId && evt.keyCode === ENTER_KEYCODE) {
+    if (offerId && evt.keyCode === window.constants.ENTER_KEYCODE) {
       showCardPopup(offerId);
     }
   });
 
   var onPressCloseCard = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
+    if (evt.keyCode === window.constants.ESC_KEYCODE) {
       hideCardPopup();
     }
   };
 
   var hideCardPopup = function () {
-    document.querySelector('.map').removeChild(document.querySelector('.map>.map__card'));
-    document.querySelector('.map').removeChild(document.querySelector('.map>.map__pin'));
+    window.pageState.hideOfferCard();
     document.removeEventListener('keydown', onPressCloseCard);
   };
 

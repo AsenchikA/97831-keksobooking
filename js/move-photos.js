@@ -11,7 +11,6 @@
   photoContainer.addEventListener('dragstart', function (evt) {
     if (evt.target.tagName.toLowerCase() === 'img') {
       draggedItem = evt.target;
-      evt.dataTransfer.setData('text/plain', evt.target.alt);
     }
   });
 

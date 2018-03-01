@@ -1,10 +1,6 @@
 'use strict';
 
 (function () {
-  window.pinProportions = {
-    PIN_WIDTH: 50,
-    PIN_HEIGHT: 70
-  };
   var QUANTITY_OFFER = 5;
   var PIN_IMG_WIDTH = 40;
   var PIN_IMG_HEIGHT = 40;
@@ -28,7 +24,7 @@
 
   var renderOfferMarker = function (offer) {
     var marker = getTemplateMarker();
-    marker.style = 'left: ' + (offer.location.x - window.pinProportions.PIN_WIDTH / 2) + 'px; top: ' + (offer.location.y - window.pinProportions.PIN_HEIGHT) + 'px;';
+    marker.style = 'left: ' + (offer.location.x - window.constants.PIN_WIDTH / 2) + 'px; top: ' + (offer.location.y - window.constants.PIN_HEIGHT) + 'px;';
     marker.firstChild.src = offer.author.avatar;
     marker.id = 'pinOffer' + offer.id;
     return marker;

@@ -41,7 +41,7 @@
     return offerPicturesFragment;
   };
 
-  var templateOfferCard = document.querySelector('template').content;
+  var templateOfferCard = document.querySelector('template').content.querySelector('article');
 
   // заполнение данными карточки товара
   window.renderOfferCard = function (offerItem) {
