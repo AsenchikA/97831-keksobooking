@@ -12,6 +12,8 @@
   var photoContainer = document.querySelector('.form__photo-container .upload');
   var avatar = document.querySelector('.notice__preview img');
   var defaultAvatarSrc = document.querySelector('.notice__preview img').src;
+  var uploadedPhotos = [];
+  var mapCard;
 
   var renderedPins = [];
 
@@ -28,12 +30,12 @@
       disableFields(false);
     },
     setPassive: function () {
-      var uploadedPhotos = document.querySelectorAll('.uploaded-photo');
+      uploadedPhotos = document.querySelectorAll('.uploaded-photo');
 
       mainPin.style = '';
       mainPin.style.transform = 'translate(0,0)';
 
-      this.hideCardofPin();
+      this.hideOfferCard();
 
       if (uploadedPhotos) {
         [].forEach.call(uploadedPhotos, function (photo) {
@@ -61,11 +63,9 @@
 
       disableFields(true);
     },
-    hideCardofPin: function () {
-      var mapCard = document.querySelector('.map__card');
+    hideOfferCard: function () {
+      mapCard = document.querySelector('.map__card');
       if (mapCard) {
-        var pinOfCard = map.querySelector('.map__card + .map__pin');
-        map.removeChild(pinOfCard);
         map.removeChild(mapCard);
       }
     }

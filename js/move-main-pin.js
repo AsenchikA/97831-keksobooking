@@ -14,7 +14,7 @@
 
   var getPinLocation = function () {
     pinLocationX = mainPin.offsetLeft + mainPin.offsetWidth / 2;
-    pinLocationY = mainPin.offsetTop + window.pinProportions.PIN_HEIGHT;
+    pinLocationY = mainPin.offsetTop + window.constants.PIN_HEIGHT;
     fieldAddress.value = pinLocationX + ', ' + pinLocationY;
   };
 
@@ -42,7 +42,7 @@
       };
 
       var pinX = mainPin.offsetLeft + mainPin.offsetWidth / 2;
-      var pinY = mainPin.offsetTop + window.pinProportions.PIN_HEIGHT;
+      var pinY = mainPin.offsetTop + window.constants.PIN_HEIGHT;
 
       var nextPinCoordinateX = pinX - shift.x;
       var nextPinCoordinateY = pinY - shift.y;

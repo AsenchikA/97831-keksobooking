@@ -8,64 +8,61 @@
   var housingFeatures = document.querySelector('#housing-features');
   var housingFeaturesInputs = housingFeatures.querySelectorAll('input');
 
-  var priceValueToNumberMax = {
-    low: 10000,
-    middle: 50000,
-    high: 100000000
-  };
-  var priceValueToNumberMin = {
-    low: 0,
-    middle: 10000,
-    high: 50000
+  var priceRanges = {
+    low: {min: 0, max: 9999},
+    middle: {min: 10000, max: 49999},
+    high: {min: 50000, max: Infinity},
+    any: {min: 0, max: Infinity}
   };
 
   var offers = [];
   var filteredOffers = [];
 
-  var onFilterByHousingType = function (pin) {
+  var byHousingType = function (pin) {
     return housingType.value === 'any' ? true : housingType.value === pin.offer.type;
   };
 
-  var onFilterByHousingPrice = function (pin) {
-    return housingPrice.value === 'any' ? true : (pin.offer.price < priceValueToNumberMax[housingPrice.value]) && (pin.offer.price >= priceValueToNumberMin[housingPrice.value]);
+  var byHousingPrice = function (pin) {
+    var range = priceRanges[housingPrice.value];
+    return pin.offer.price >= range.min && pin.offer.price <= range.max;
   };
 
-  var onFilterByHousingRooms = function (pin) {
+  var byHousingRooms = function (pin) {
     return housingRooms.value === 'any' ? true : +housingRooms.value === pin.offer.rooms;
   };
 
-  var onFilterByHousingQuests = function (pin) {
+  var byHousingQuests = function (pin) {
     return housingQuests.value === 'any' ? true : +housingQuests.value === pin.offer.guests;
   };
 
-  var onFilterByHousingFeatures = function (pin) {
-    var choisenFeatures = [].filter.call(housingFeaturesInputs, function (elem) {
+  var byHousingFeatures = function (pin) {
+    var chosenFeatures = [].filter.call(housingFeaturesInputs, function (elem) {
       return elem.checked;
     });
-    if (choisenFeatures.length === 0) {
+    if (chosenFeatures.length === 0) {
       return true;
     } else {
       var existenceChosenFeatures = 0;
-      [].forEach.call(choisenFeatures, function (choisenFeature) {
+      [].forEach.call(chosenFeatures, function (chosenFeature) {
         pin.offer.features.forEach(function (offerFeature) {
-          if (choisenFeature.value === offerFeature) {
+          if (chosenFeature.value === offerFeature) {
             existenceChosenFeatures++;
           }
         });
       });
-      return existenceChosenFeatures === choisenFeatures.length;
+      return existenceChosenFeatures === chosenFeatures.length;
     }
   };
 
   var onChangeSelect = function () {
-    window.pageState.hideCardofPin();
+    window.pageState.hideOfferCard();
     offers = window.offers.slice();
     filteredOffers = offers
-        .filter(onFilterByHousingType)
-        .filter(onFilterByHousingPrice)
-        .filter(onFilterByHousingRooms)
-        .filter(onFilterByHousingQuests)
-        .filter(onFilterByHousingFeatures);
+        .filter(byHousingType)
+        .filter(byHousingPrice)
+        .filter(byHousingRooms)
+        .filter(byHousingQuests)
+        .filter(byHousingFeatures);
     window.debounce(window.updatePins(filteredOffers));
   };
 

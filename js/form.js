@@ -3,7 +3,6 @@
 (function () {
   var NOT_GUEST_ROOMS_VALUE = 100;
   var NOT_GUEST_CAPACITY_VALUE = 0;
-  var ENTER_KEYCODE = 13;
 
   var form = document.querySelector('.notice__form');
 
@@ -73,12 +72,12 @@
   };
 
   form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
     var formData = new FormData(form);
     window.getUploadedPhotos().forEach(function (pic) {
       formData.append('files', pic, pic.name);
     });
     window.backend.save(formData, onSuccessSaveForm, window.showErrorMessage);
-    evt.preventDefault();
   });
 
   resetButton.addEventListener('click', function () {
@@ -86,7 +85,7 @@
   });
 
   resetButton.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
+    if (evt.keyCode === window.constants.ENTER_KEYCODE) {
       window.pageState.setPassive();
     }
   });
