@@ -8,9 +8,11 @@
   var housingFeatures = document.querySelector('#housing-features');
   var housingFeaturesInputs = housingFeatures.querySelectorAll('input');
 
-  var priceBorders = {
-    low: 10000,
-    high: 50000
+  var priceRanges = {
+    low: {min: 0, max: 9999},
+    middle: {min: 10000, max: 49999},
+    high: {min: 50000, max: Infinity},
+    any: {min: 0, max: Infinity}
   };
 
   var offers = [];
@@ -21,14 +23,8 @@
   };
 
   var byHousingPrice = function (pin) {
-    if (housingPrice.value === 'any') {
-      return true;
-    } else if (housingPrice.value === 'low' && pin.offer.price < priceBorders.low ||
-    housingPrice.value === 'middle' && pin.offer.price >= priceBorders.low && pin.offer.price <= priceBorders.high ||
-    housingPrice.value === 'high' && pin.offer.price > priceBorders.high) {
-      return true;
-    }
-    return false;
+    var range = priceRanges[housingPrice.value];
+    return pin.offer.price >= range.min && pin.offer.price <= range.max;
   };
 
   var byHousingRooms = function (pin) {
@@ -40,21 +36,21 @@
   };
 
   var byHousingFeatures = function (pin) {
-    var choisenFeatures = [].filter.call(housingFeaturesInputs, function (elem) {
+    var chosenFeatures = [].filter.call(housingFeaturesInputs, function (elem) {
       return elem.checked;
     });
-    if (choisenFeatures.length === 0) {
+    if (chosenFeatures.length === 0) {
       return true;
     } else {
-      var existenceChoisenFeatures = 0;
-      [].forEach.call(choisenFeatures, function (choisenFeature) {
+      var existenceChosenFeatures = 0;
+      [].forEach.call(chosenFeatures, function (chosenFeature) {
         pin.offer.features.forEach(function (offerFeature) {
-          if (choisenFeature.value === offerFeature) {
-            existenceChoisenFeatures++;
+          if (chosenFeature.value === offerFeature) {
+            existenceChosenFeatures++;
           }
         });
       });
-      return existenceChoisenFeatures === choisenFeatures.length;
+      return existenceChosenFeatures === chosenFeatures.length;
     }
   };
 
