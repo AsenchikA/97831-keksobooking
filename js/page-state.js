@@ -29,16 +29,11 @@
     },
     setPassive: function () {
       var uploadedPhotos = document.querySelectorAll('.uploaded-photo');
-      var mapCard = document.querySelector('.map__card');
 
       mainPin.style = '';
       mainPin.style.transform = 'translate(0,0)';
 
-      if (mapCard) {
-        var pinOfCard = map.querySelector('.map__card + .map__pin');
-        map.removeChild(pinOfCard);
-        map.removeChild(mapCard);
-      }
+      this.hideCardofPin();
 
       if (uploadedPhotos) {
         [].forEach.call(uploadedPhotos, function (photo) {
@@ -65,6 +60,14 @@
       fieldAddress.value = pinLocationX + ', ' + pinLocationY;
 
       disableFields(true);
+    },
+    hideCardofPin: function () {
+      var mapCard = document.querySelector('.map__card');
+      if (mapCard) {
+        var pinOfCard = map.querySelector('.map__card + .map__pin');
+        map.removeChild(pinOfCard);
+        map.removeChild(mapCard);
+      }
     }
   };
 

@@ -58,6 +58,7 @@
   };
 
   var onChangeSelect = function () {
+    window.pageState.hideCardofPin();
     offers = window.offers.slice();
     filteredOffers = offers
         .filter(onFilterByHousingType)
