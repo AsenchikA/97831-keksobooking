@@ -17,7 +17,6 @@
 
   photoContainer.addEventListener('dragover', function (evt) {
     evt.preventDefault();
-    return false;
   });
   photoContainer.addEventListener('drop', function (evt) {
     uploadedPhotos = [].slice.call(document.querySelectorAll('.uploaded-photo'));

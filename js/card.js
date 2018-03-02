@@ -5,7 +5,7 @@
   var PHOTO_WIDTH = 100;
 
   // заполнение вспомогательных данных для карточки предложения
-  var offerTypes = {
+  var OfferTypes = {
     bungalo: 'Бунгало',
     house: 'Дом',
     flat: 'Квартира'
@@ -50,7 +50,7 @@
     filledOffer.querySelector('h3').textContent = offerItem.offer.title;
     filledOffer.querySelector('p small').textContent = offerItem.offer.address;
     filledOffer.querySelector('.popup__price').textContent = offerItem.offer.price + ' \u20BD/ночь';
-    filledOffer.querySelector('h4').textContent = offerTypes[offerItem.offer.type];
+    filledOffer.querySelector('h4').textContent = OfferTypes[offerItem.offer.type];
     filledOffer.querySelector('h4 + p').textContent = offerItem.offer.rooms + ' комнаты для ' + offerItem.offer.guests + ' гостей';
     filledOffer.querySelector('h4 + p + p').textContent = 'Заезд после ' + offerItem.offer.checkin + ', выезд до ' + offerItem.offer.checkout;
     filledOffer.querySelector('.popup__avatar').src = offerItem.author.avatar;

@@ -8,34 +8,33 @@
   var housingFeatures = document.querySelector('#housing-features');
   var housingFeaturesInputs = housingFeatures.querySelectorAll('input');
 
-  var priceRanges = {
+  var PriceRanges = {
     low: {min: 0, max: 9999},
     middle: {min: 10000, max: 49999},
     high: {min: 50000, max: Infinity},
     any: {min: 0, max: Infinity}
   };
 
-  var offers = [];
   var filteredOffers = [];
 
-  var byHousingType = function (pin) {
+  var filterByHousingType = function (pin) {
     return housingType.value === 'any' ? true : housingType.value === pin.offer.type;
   };
 
-  var byHousingPrice = function (pin) {
-    var range = priceRanges[housingPrice.value];
+  var filterByHousingPrice = function (pin) {
+    var range = PriceRanges[housingPrice.value];
     return pin.offer.price >= range.min && pin.offer.price <= range.max;
   };
 
-  var byHousingRooms = function (pin) {
+  var filterByHousingRooms = function (pin) {
     return housingRooms.value === 'any' ? true : +housingRooms.value === pin.offer.rooms;
   };
 
-  var byHousingQuests = function (pin) {
+  var filterByHousingQuests = function (pin) {
     return housingQuests.value === 'any' ? true : +housingQuests.value === pin.offer.guests;
   };
 
-  var byHousingFeatures = function (pin) {
+  var filterByHousingFeatures = function (pin) {
     var chosenFeatures = [].filter.call(housingFeaturesInputs, function (elem) {
       return elem.checked;
     });
@@ -56,13 +55,12 @@
 
   var onChangeSelect = function () {
     window.pageState.hideOfferCard();
-    offers = window.offers.slice();
-    filteredOffers = offers
-        .filter(byHousingType)
-        .filter(byHousingPrice)
-        .filter(byHousingRooms)
-        .filter(byHousingQuests)
-        .filter(byHousingFeatures);
+    filteredOffers = window.offers
+        .filter(filterByHousingType)
+        .filter(filterByHousingPrice)
+        .filter(filterByHousingRooms)
+        .filter(filterByHousingQuests)
+        .filter(filterByHousingFeatures);
     window.debounce(window.updatePins(filteredOffers));
   };
 

@@ -24,7 +24,7 @@
 
   var renderOfferMarker = function (offer) {
     var marker = getTemplateMarker();
-    marker.style = 'left: ' + (offer.location.x - window.constants.PIN_WIDTH / 2) + 'px; top: ' + (offer.location.y - window.constants.PIN_HEIGHT) + 'px;';
+    marker.style = 'left: ' + (offer.location.x - window.Constants.PIN_WIDTH / 2) + 'px; top: ' + (offer.location.y - window.Constants.PIN_HEIGHT) + 'px;';
     marker.firstChild.src = offer.author.avatar;
     marker.id = 'pinOffer' + offer.id;
     return marker;
