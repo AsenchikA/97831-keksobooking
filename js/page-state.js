@@ -35,6 +35,8 @@
       mainPin.style = '';
       mainPin.style.transform = 'translate(0,0)';
 
+      document.querySelector('.map__filters').reset();
+
       this.hideOfferCard();
 
       if (uploadedPhotos) {

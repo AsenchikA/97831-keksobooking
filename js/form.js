@@ -15,17 +15,17 @@
   var optionsCapacitySelect = document.querySelectorAll('#capacity option');
   var resetButton = document.querySelector('.form__reset');
 
-  var offerMinPrice = {
+  var OfferMinPrice = {
     bungalo: 0,
     flat: 1000,
     house: 5000,
     palace: 10000
   };
 
-  fieldPrice.min = offerMinPrice[typeSelect.value];
+  fieldPrice.min = OfferMinPrice[typeSelect.value];
 
   typeSelect.addEventListener('change', function (evt) {
-    fieldPrice.min = offerMinPrice[evt.target.value];
+    fieldPrice.min = OfferMinPrice[evt.target.value];
   });
 
   fieldTimeIn.addEventListener('change', function (evt) {
@@ -85,7 +85,7 @@
   });
 
   resetButton.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.constants.ENTER_KEYCODE) {
+    if (evt.keyCode === window.Constants.ENTER_KEYCODE) {
       window.pageState.setPassive();
     }
   });
