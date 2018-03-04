@@ -47,14 +47,16 @@
   window.renderOfferCard = function (offerItem) {
     var filledOffer = templateOfferCard.cloneNode(true);
 
+    var offerDetails = filledOffer.querySelectorAll('p');
+
     filledOffer.querySelector('h3').textContent = offerItem.offer.title;
-    filledOffer.querySelector('p small').textContent = offerItem.offer.address;
-    filledOffer.querySelector('.popup__price').textContent = offerItem.offer.price + ' \u20BD/ночь';
+    offerDetails[0].firstChild.textContent = offerItem.offer.address;
+    offerDetails[1].textContent = offerItem.offer.price + ' \u20BD/ночь';
     filledOffer.querySelector('h4').textContent = OfferTypes[offerItem.offer.type];
-    filledOffer.querySelector('h4 + p').textContent = offerItem.offer.rooms + ' комнаты для ' + offerItem.offer.guests + ' гостей';
-    filledOffer.querySelector('h4 + p + p').textContent = 'Заезд после ' + offerItem.offer.checkin + ', выезд до ' + offerItem.offer.checkout;
+    offerDetails[2].textContent = offerItem.offer.rooms + ' комнаты для ' + offerItem.offer.guests + ' гостей';
+    offerDetails[3].textContent = 'Заезд после ' + offerItem.offer.checkin + ', выезд до ' + offerItem.offer.checkout;
     filledOffer.querySelector('.popup__avatar').src = offerItem.author.avatar;
-    filledOffer.querySelector('ul + p').textContent = offerItem.offer.description;
+    offerDetails[4].textContent = offerItem.offer.description;
 
     var offerFeaturesContainer = filledOffer.querySelector('.popup__features');
     offerFeaturesContainer.textContent = '';
