@@ -27,7 +27,7 @@
   });
 
   var onPressCloseCard = function (evt) {
-    if (evt.keyCode === window.ESC_KEYCODE) {
+    if (evt.keyCode === window.Constants.ESC_KEYCODE) {
       hideCardPopup();
     }
   };

@@ -59,8 +59,8 @@
       map.classList.add('map--faded');
       noticeForm.classList.add('notice__form--disabled');
 
-      var pinLocationX = mainPin.offsetLeft + mainPin.offsetWidth / 2;
-      var pinLocationY = mainPin.offsetTop + mainPin.offsetHeight / 2;
+      var pinLocationX = Math.round(mainPin.offsetLeft + mainPin.offsetWidth / 2);
+      var pinLocationY = Math.round(mainPin.offsetTop + mainPin.offsetHeight / 2);
       fieldAddress.value = pinLocationX + ', ' + pinLocationY;
 
       disableFields(true);

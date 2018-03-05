@@ -36,28 +36,40 @@
     fieldTimeIn.value = evt.target.value;
   });
 
+  var getCapacitySelectValidity = function () {
+    return capacitySelect.value <= roomsSelect.value && +capacitySelect.value !== NOT_GUEST_CAPACITY_VALUE;
+  };
+
   var disableCapacityOptions = function (selectedRoom) {
-    for (var i = 0; i < optionsCapacitySelect.length; i++) {
+    [].forEach.call(optionsCapacitySelect, function (option) {
       if (selectedRoom === NOT_GUEST_ROOMS_VALUE) {
         capacitySelect.value = NOT_GUEST_CAPACITY_VALUE;
-        optionsCapacitySelect[i].disabled = true;
-        if (+optionsCapacitySelect[i].value === NOT_GUEST_CAPACITY_VALUE) {
-          optionsCapacitySelect[i].disabled = false;
+        option.disabled = true;
+        if (+option.value === NOT_GUEST_CAPACITY_VALUE) {
+          option.disabled = false;
         }
       } else {
-        optionsCapacitySelect[i].disabled = false;
-        if (+optionsCapacitySelect[i].value === NOT_GUEST_CAPACITY_VALUE) {
-          optionsCapacitySelect[i].disabled = true;
+        option.disabled = false;
+        if (+option.value === NOT_GUEST_CAPACITY_VALUE) {
+          option.disabled = true;
         }
-        if (+optionsCapacitySelect[i].value > selectedRoom) {
-          optionsCapacitySelect[i].disabled = true;
+        if (+option.value > selectedRoom) {
+          option.disabled = true;
         }
-        if (capacitySelect.value > selectedRoom || +capacitySelect.value === NOT_GUEST_CAPACITY_VALUE) {
-          capacitySelect.value = selectedRoom;
+        if (!getCapacitySelectValidity()) {
+          capacitySelect.setCustomValidity('Выберете доступное значение');
+        } else {
+          capacitySelect.setCustomValidity('');
         }
       }
-    }
+    });
   };
+
+  capacitySelect.addEventListener('change', function () {
+    if (getCapacitySelectValidity()) {
+      capacitySelect.setCustomValidity('');
+    }
+  });
 
   var selectedRoomValue = 0;
 

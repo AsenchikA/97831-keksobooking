@@ -8,6 +8,13 @@
   var onCloseNotification = function () {
     notificationNode.classList.add('hidden');
     notificationCloseBtn.removeEventListener('click', onCloseNotification);
+    document.removeEventListener('keydown', onPressCloseNotification);
+  };
+
+  var onPressCloseNotification = function (evt) {
+    if (evt.keyCode === window.Constants.ESC_KEYCODE) {
+      onCloseNotification();
+    }
   };
 
   window.showErrorMessage = function (errorMessage) {
@@ -15,5 +22,6 @@
     notificationNode.classList.remove('hidden');
     notificationText.textContent = errorMessage;
     notificationCloseBtn.addEventListener('click', onCloseNotification);
+    document.addEventListener('keydown', onPressCloseNotification);
   };
 })();

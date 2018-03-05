@@ -9,12 +9,12 @@
   var map = document.querySelector('.map');
   var fieldAddress = document.querySelector('#address');
 
-  var pinLocationX = mainPin.offsetLeft + mainPin.offsetWidth / 2;
-  var pinLocationY = mainPin.offsetTop + mainPin.offsetHeight / 2;
+  var pinLocationX;
+  var pinLocationY;
 
   var getPinLocation = function () {
-    pinLocationX = mainPin.offsetLeft + mainPin.offsetWidth / 2;
-    pinLocationY = mainPin.offsetTop + window.Constants.PIN_HEIGHT;
+    pinLocationX = Math.round(mainPin.offsetLeft + mainPin.offsetWidth / 2);
+    pinLocationY = Math.round(mainPin.offsetTop + window.Constants.PIN_HEIGHT);
     fieldAddress.value = pinLocationX + ', ' + pinLocationY;
   };
 
