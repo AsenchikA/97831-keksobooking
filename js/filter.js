@@ -17,18 +17,12 @@
 
   var filteredOffers = [];
 
-  var getConditionResult = function (filterValue, offerValue, isNeedNumberValue) {
-    if (filterValue === 'any') {
-      return true;
-    } else if (isNeedNumberValue) {
-      return +filterValue === offerValue;
-    } else {
-      return filterValue === offerValue;
-    }
+  var getConditionResult = function (filterValue, offerValue) {
+    return filterValue === 'any' || filterValue === offerValue;
   };
 
   var filterByHousingType = function (pin) {
-    return getConditionResult(housingType.value, pin.offer.type, false);
+    return getConditionResult(housingType.value, pin.offer.type);
   };
 
   var filterByHousingPrice = function (pin) {
@@ -37,11 +31,11 @@
   };
 
   var filterByHousingRooms = function (pin) {
-    return getConditionResult(housingRooms.value, pin.offer.rooms, true);
+    return getConditionResult(housingRooms.value, pin.offer.rooms.toString());
   };
 
   var filterByHousingQuests = function (pin) {
-    return getConditionResult(housingQuests.value, pin.offer.guests, true);
+    return getConditionResult(housingQuests.value, pin.offer.guests.toString());
   };
 
   var filterByHousingFeatures = function (pin) {
@@ -68,7 +62,7 @@
         .filter(filterByHousingRooms)
         .filter(filterByHousingQuests)
         .filter(filterByHousingFeatures);
-    window.onDebounce(window.updatePins(filteredOffers));
+    window.debounce(window.updatePins(filteredOffers));
   };
 
   filtersContainer.addEventListener('change', onChangeSelect);
