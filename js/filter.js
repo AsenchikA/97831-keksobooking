@@ -40,18 +40,9 @@
 
   var filterByHousingFeatures = function (pin) {
     var chosenFeatures = housingFeatures.querySelectorAll('input[type=checkbox]:checked');
-    if (chosenFeatures.length !== 0) {
-      var existenceChosenFeatures = 0;
-      [].forEach.call(chosenFeatures, function (chosenFeature) {
-        pin.offer.features.forEach(function (offerFeature) {
-          if (chosenFeature.value === offerFeature) {
-            existenceChosenFeatures++;
-          }
-        });
-      });
-      return existenceChosenFeatures === chosenFeatures.length;
-    }
-    return true;
+    return [].every.call(chosenFeatures, function (feature) {
+      return pin.offer.features.indexOf(feature.value) !== -1;
+    });
   };
 
   var onChangeSelect = function () {

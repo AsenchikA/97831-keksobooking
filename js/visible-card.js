@@ -33,8 +33,10 @@
   };
 
   var hideCardPopup = function () {
-    window.pageState.hideOfferCard();
+    var popupCloseButton = document.querySelector('.popup__close');
+    popupCloseButton.removeEventListener('click', hideCardPopup);
     document.removeEventListener('keydown', onPressCloseCard);
+    window.pageState.hideOfferCard();
   };
 
 
@@ -48,9 +50,7 @@
     document.querySelector('.map').insertBefore(offerCardsFragment, document.querySelector('.map__filters-container'));
 
     var popupCloseButton = document.querySelector('.popup__close');
-    popupCloseButton.addEventListener('click', function () {
-      hideCardPopup();
-    });
+    popupCloseButton.addEventListener('click', hideCardPopup);
     document.addEventListener('keydown', onPressCloseCard);
   };
 })();
